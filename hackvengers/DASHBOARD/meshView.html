@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <h1 style="text-align: center;">PARUL UNIVERSITY 'S SECURITY MAP</h1>
+      <script>
+         function initMap() {
+            var mapProp = {
+               center: new google.maps.LatLng(22.2895,  73.3638),
+               zoom: 16,
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            
+            var map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+            
+            // create an array of marker objects
+            var markers = [
+            {
+                  position: new google.maps.LatLng(22.2876,  73.3655),
+                  title: 'PU MAIN GATE '
+               },
+               {
+                  position: new google.maps.LatLng(22.2876,  73.3628),
+                  title: 'PU GATE 1'
+               },
+               
+               {
+                  position: new google.maps.LatLng(22.2894,  73.3611),
+                  title: 'PU ARCH GATE'
+               }
+               ,
+               {
+                  position: new google.maps.LatLng(22.2914,  73.3632),
+                  title: 'HACKVENGER VENUE'
+               },
+               {
+                  position: new google.maps.LatLng(22.2909,  73.3660),
+                  title: 'PU GATE 1'
+               },
+            ];
+            
+            // loop through the array and create a marker for each object
+            for (var i = 0; i < markers.length; i++) {
+               var marker = new google.maps.Marker({
+                  position: markers[i].position,
+                  map: map,
+                  title: markers[i].title
+               });
+            }
+         
+
+
+         var polygon = new google.maps.Polygon({
+               paths: [
+                  markers[0].position,
+                  markers[1].position,
+                  markers[2].position,
+                  markers[3].position,
+                  markers[4].position
+               ],
+               strokeColor: '#FF0000',
+               strokeOpacity: 0.6,
+               strokeWeight: 2,
+               fillColor: '#FF0000',
+               fillOpacity: 0.35
+            },
+            //hover: "TRIALLLLL" 
+
+            );
+            
+            polygon.setMap(map);
+            var bounds = new google.maps.LatLngBounds();
+            polygon.getPath().forEach(function(latLng) {
+               bounds.extend(latLng);
+            });
+            var center = bounds.getCenter();
+            var title = 'PU AREA';
+            var label = new google.maps.Marker({
+               position: center,
+               map: map,
+               icon :{
+                  path: google.maps.SymbolPath.CIRCLE,
+                  scale:0,
+               },
+               label: {
+                  text: title,
+                 
+                  color: '#f5f5f5'
+               },
+               zIndex: 999
+            });
+         }
+         
+         
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbcYek_XbMDSrWIO8udi-M9irN4UXZCCs&callback=initMap" async defer></script>
+   </head>
+   <body>
+      <div id="googleMap" style="width:1080px; height:450px; margin-left: 100px;"></div>
+   </body>
+</html>
